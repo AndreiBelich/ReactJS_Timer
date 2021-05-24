@@ -17,7 +17,7 @@ class Timer{
     this.delay = delay;
   }
 
-  start(tickHandler, savedTime = 0){
+  start(tickHandler = () => {}, savedTime = 0){
     const startDate = new Date().getTime();
     this._timerID = setInterval(() => {
       const currentDate = new Date().getTime();
@@ -30,7 +30,7 @@ class Timer{
     this._clearTimerId();
   }
 
-  restart(tickHandler){
+  restart(tickHandler = () => {}){
     this.start(tickHandler, this._currentMilliseconds);
   }
 
@@ -51,7 +51,7 @@ class Timer{
     if(typeof(newValue) !== "number" ){
       throw new TypeError("Type of value must be number");
     }
-    if(newValue < 1){
+    if(newValue < Timer.TIMER_DEFAULT_DELAY){
       this._delay = Timer.TIMER_DEFAULT_DELAY;
     }
     this._delay = newValue;
