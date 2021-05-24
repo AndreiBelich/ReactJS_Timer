@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import "./ControlButton.css";
 
 class ControlButton extends Component {
-  
+
   clickHandler = () => {
     const { isChange } = this.props.config;
     const [ unchangedHandler, changedHandler ] = this.props.handlers;
-    if(!isChange){
-      unchangedHandler();
-    }else{
+    if(isChange){
       changedHandler();
+    }else{
+      unchangedHandler();
     }
   }
 
