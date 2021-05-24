@@ -50,6 +50,7 @@ class Timer{
   }
 
   start(handler, savedTime = 0){
+    console.log("Start timer");
     const startDate = new Date().getTime();
     this._timerID = setInterval(() => {
       const currentDate = new Date().getTime();
@@ -59,14 +60,17 @@ class Timer{
   }
 
   stop(){
+    console.log("Stop timer");
     this._clearTimerId();
   }
 
   restart(handler){
+    console.log("Restart timer");
     this.start(handler, this._currentMilliseconds);
   }
 
   reset(){
+    console.log("Reset timer");
     this._currentMilliseconds = 0;
     this._clearTimerId();
   }

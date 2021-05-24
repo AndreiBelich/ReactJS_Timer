@@ -1,0 +1,13 @@
+.timer{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid brown;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  padding: 15px;
+}
+
+.controlButtonsRow{
+  display: flex;
+}

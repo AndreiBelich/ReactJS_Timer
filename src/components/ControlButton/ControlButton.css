@@ -1,0 +1,7 @@
+.controlButton{
+  width: 125px;
+  border: 1px solid transparent;
+  padding: 5px 10px;
+  margin: 0 10px;
+  background-color: brown;
+}

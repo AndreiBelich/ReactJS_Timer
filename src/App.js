@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Display from "./components/Display";
 import ControlButton from "./components/ControlButton";
 import Timer from "./logic/Timer.js";
+import "./App.css";
 
 class App extends Component {
 
@@ -12,10 +13,12 @@ class App extends Component {
       currentTime: "00:00:00:000",
       startButton: {
         isHidden: false,
+        isChange: false,
         title: "Start"
       },
       pauseButton: {
         isHidden: true,
+        isChange: false,
         title: "Stop"
       }
     }
@@ -26,6 +29,7 @@ class App extends Component {
     this.setState({
       startButton: {
         title: "Reset",
+        isChange: true
       },
       pauseButton: {
         isHidden: false,
@@ -40,6 +44,7 @@ class App extends Component {
       currentTime: "00:00:00:000",
       startButton: {
         title: "Start",
+        isChange: false
       },
       pauseButton: {
         isHidden: true
@@ -51,7 +56,8 @@ class App extends Component {
     this.state.timer.stop();
     this.setState({
       pauseButton: {
-        title: "Resume"
+        title: "Resume",
+        isChange: true
       }
     });
   }
@@ -60,7 +66,8 @@ class App extends Component {
     this.state.timer.restart(this.updateTime);
     this.setState({
       pauseButton: {
-        title: "Stop"
+        title: "Stop",
+        isChange: false
       }
     });
   }
@@ -74,16 +81,19 @@ class App extends Component {
   render(){
     const { startButton, pauseButton, currentTime } = this.state;
     return (
-      <>
+      <article className="timer">
         <div>My Timer</div>
         <Display currentTime={currentTime} />
-        <ControlButton handlers={[this.start, this.reset]} config={startButton} />
-        <ControlButton handlers={[this.stop, this.restart]} config={pauseButton} />
-      </>
+        <div className="controlButtonsRow">
+          <ControlButton handlers={[this.start, this.reset]} config={startButton} />
+          <ControlButton handlers={[this.stop, this.restart]} config={pauseButton} />
+        </div>
+      </article>
     );
   }
 }
 
 export default App;
 
-//
+//Resume/Stop + Reset
+//Start + Stop + Reset + Start + Stop

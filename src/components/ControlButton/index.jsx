@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
+import "./ControlButton.css";
 
 class ControlButton extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      isChange: false
-    }
-  }
-
+  
   clickHandler = () => {
-    const { isChange } = this.state;
-    this.setState({
-      isChange: !isChange
-    });
+    const { isChange } = this.props.config;
     const [ unchangedHandler, changedHandler ] = this.props.handlers;
     if(!isChange){
       unchangedHandler();
@@ -27,7 +19,7 @@ class ControlButton extends Component {
       display: isHidden ? "none" : ""
     };
     return (
-      <button onClick={this.clickHandler} style={styles}>{title}</button>
+      <button onClick={this.clickHandler} className="controlButton" style={styles}>{title}</button>
     )
   }
 }
