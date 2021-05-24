@@ -17,7 +17,7 @@ class Timer{
     this.delay = delay;
   }
 
-  start(tickHandler = () => {}, savedTime = 0){
+  start(tickHandler = this._defaultTickHandler, savedTime = 0){
     const startDate = new Date().getTime();
     this._timerID = setInterval(() => {
       const currentDate = new Date().getTime();
@@ -30,7 +30,7 @@ class Timer{
     this._clearTimerId();
   }
 
-  restart(tickHandler = () => {}){
+  restart(tickHandler = this._defaultTickHandler){
     this.start(tickHandler, this._currentMilliseconds);
   }
 
@@ -82,6 +82,10 @@ class Timer{
       return `0${value}`;
     }
     return value;
+  }
+
+  _defaultTickHandler(){
+    console.log("Tic-Tac");
   }
   /*Private methods end*/
 }
