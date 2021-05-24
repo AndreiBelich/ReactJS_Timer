@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Display from "./components/Display";
 import ControlButton from "./components/ControlButton";
+import TimerHeader from "./components/TimerHeader";
 import Timer from "./logic/Timer.js";
 import "./App.css";
 
@@ -82,7 +83,7 @@ class App extends Component {
     const { startButton, pauseButton, currentTime } = this.state;
     return (
       <article className="timer">
-        <div>My Timer</div>
+        <TimerHeader title={"My Timer"} />
         <Display currentTime={currentTime} />
         <div className="controlButtonsRow">
           <ControlButton handlers={[this.start, this.reset]} config={startButton} />

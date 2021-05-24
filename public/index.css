@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body{
+  font-family: "Arial", sans-serif;
+}
+
 #root{
   height: 100vh;
   border: 2px solid orange;
