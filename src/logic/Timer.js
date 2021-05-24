@@ -18,9 +18,9 @@ class Timer{
   }
 
   start(tickHandler = this._defaultTickHandler, savedTime = 0){
-    const startDate = new Date().getTime();
+    const startDate = Date.now();
     this._timerID = setInterval(() => {
-      const currentDate = new Date().getTime();
+      const currentDate = Date.now();
       this._currentMilliseconds = currentDate - startDate + savedTime;
       tickHandler();
     }, this.delay);
