@@ -1,5 +1,6 @@
 class Timer{
 
+  /*Static constants start*/
   static MILLISECONDS_PER_SECOND = 1000;
   static MILLISECONDS_PER_MINUTE = Timer.MILLISECONDS_PER_SECOND * 60;
   static MILLISECONDS_PER_HOUR = Timer.MILLISECONDS_PER_MINUTE * 60;
@@ -7,11 +8,43 @@ class Timer{
   static MINUTES_PER_HOUR = 60;
   static HOURS_PER_DAY = 24;
   static TIMER_DEFAULT_DELAY = 10;
+  /*Static constants end*/
 
+  /*Public methods start*/
   constructor(delay = Timer.TIMER_DEFAULT_DELAY){
     this._currentMilliseconds = 0;
     this._timerID = null;
     this.delay = delay;
+  }
+
+  start(tickHandler, savedTime = 0){
+    const startDate = new Date().getTime();
+    this._timerID = setInterval(() => {
+      const currentDate = new Date().getTime();
+      this._currentMilliseconds = currentDate - startDate + savedTime;
+      tickHandler();
+    }, this.delay);
+  }
+
+  stop(){
+    this._clearTimerId();
+  }
+
+  restart(tickHandler){
+    this.start(tickHandler, this._currentMilliseconds);
+  }
+
+  reset(){
+    this._currentMilliseconds = 0;
+    this._clearTimerId();
+  }
+
+  getTime(){
+    const milliseconds = this._getCorrectMilliseconds(this._currentMilliseconds % Timer.MILLISECONDS_PER_SECOND);
+    const seconds = this._getCorrectValue(Math.floor(this._currentMilliseconds / Timer.MILLISECONDS_PER_SECOND) % Timer.SECONDS_PER_MINUTE);
+    const minutes = this._getCorrectValue(Math.floor(this._currentMilliseconds / Timer.MILLISECONDS_PER_MINUTE) % Timer.MINUTES_PER_HOUR);
+    const hours = this._getCorrectValue(Math.floor(this._currentMilliseconds / Timer.MILLISECONDS_PER_HOUR));
+    return `${hours}:${minutes}:${seconds}:${milliseconds}`;
   }
 
   set delay(newValue){
@@ -27,7 +60,9 @@ class Timer{
   get delay(){
     return this._delay;
   }
+  /*Public methods end*/
 
+  /*Private methods start*/
   _clearTimerId(){
     if(this._timerID){
       clearInterval(this._timerID);
@@ -48,40 +83,7 @@ class Timer{
     }
     return value;
   }
-
-  start(handler, savedTime = 0){
-    console.log("Start timer");
-    const startDate = new Date().getTime();
-    this._timerID = setInterval(() => {
-      const currentDate = new Date().getTime();
-      this._currentMilliseconds = currentDate - startDate + savedTime;
-      handler();
-    }, this.delay);
-  }
-
-  stop(){
-    console.log("Stop timer");
-    this._clearTimerId();
-  }
-
-  restart(handler){
-    console.log("Restart timer");
-    this.start(handler, this._currentMilliseconds);
-  }
-
-  reset(){
-    console.log("Reset timer");
-    this._currentMilliseconds = 0;
-    this._clearTimerId();
-  }
-
-  getTime(){
-    const milliseconds = this._getCorrectMilliseconds(this._currentMilliseconds % Timer.MILLISECONDS_PER_SECOND);
-    const seconds = this._getCorrectValue(Math.floor(this._currentMilliseconds / Timer.MILLISECONDS_PER_SECOND) % Timer.SECONDS_PER_MINUTE);
-    const minutes = this._getCorrectValue(Math.floor(this._currentMilliseconds / Timer.MILLISECONDS_PER_MINUTE) % Timer.MINUTES_PER_HOUR);
-    const hours = this._getCorrectValue(Math.floor(this._currentMilliseconds / Timer.MILLISECONDS_PER_HOUR));
-    return `${hours}:${minutes}:${seconds}:${milliseconds}`;
-  }
+  /*Private methods end*/
 }
 
 export default Timer;
